@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <title>puzzle</title>
+    <style>
+      body {
+        background-color: black;
+        font-family: 微軟正黑體;
+      }
+      img {
+        height: 500px;
+        width: 500px;
+      }
+
+      #dvPuzzle {
+        width: 510px;
+        height: 510px;
+        border: solid 5px blue;
+        padding: 0px;
+        margin: 20px auto;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-4 text-center">
+        <button
+          id="restore"
+          type="button"
+          class="btn btn-secondary rounded"
+          style="height:50px; width: 200px; margin:10px 0;"
+          align="center"
+          value="start"
+        >
+          復原
+        </button>
+      </div>
+      <div class="col-4 text-center ">
+        <button
+          id="start"
+          type="button"
+          class="btn btn-secondary rounded"
+          style=" height:50px; width: 300px; margin:10px 0;"
+          align="center"
+          value="start"
+        >
+          開始拼圖
+        </button>
+      </div>
+      <div class="col-4 text-center ">
+        <button
+          id="Dcn"
+          type="button"
+          class="btn btn-secondary rounded"
+          style="height:50px; width: 200px; margin:10px 0;"
+          align="center"
+          value="start"
+        >
+          說明
+        </button>
+      </div>
+      <div class="col-6">
+        <div id="dvPuzzle"></div>
+      </div>
+      <div class="col-6">
+        <img
+          src="/20181112_233622_0001.png"
+          alt=""
+          style="display:block; margin:20px auto;"
+        />
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(function() {
+        var allPos = {}; //???????
+        //製作16張圖
+        for (var i = 0; i < 16; i++) {
+          $("#dvPuzzle").append("<div class='PicCell overflow-hidden float-left border border-light' style='width:125px;height:125px;' id='Pic" + i 
+          + "'><img src='/20181112_233622_0001.png'/></div>"
+          );
+          var y = parseInt(i / 4);
+          var x = i % 4;
+          $("#Pic" + i + " img")
+            .css("margin-left", x * -125)
+            .css("margin-top", y * -125);
+          //第i個換成第row列第col行
+          allPos[i] = { row: y, col: x };
+          console.log(x, y);
+          // $("#Pic0").remove();
+          //取得 i 四周相鄰的位置
+          function getAroundPos(i) {
+            var around = [];
+            var y = allPos[i].row
+            var x = allPos[i].col
+            if(y > 0) {                         //上
+              around.push((y - 1) * 4 + x);
+            }
+            if(y < 4) {                         //下
+              around.push((y + 1) * 4 + x);
+            }
+            if(x > 0) {                         //左
+              around.push((x - 1));
+            }      
+            if(y > 0) {                         //右
+              around.push((x + 1));
+            }
+            return around;
+          }
+        }
+        //點及事件
+        $(".PicCell").click(function() {
+          var cells = $("#dvPuzzle div");
+          var i = cells.index(this);
+          var toCheck = getAroundPos(i);   //找出元素是第幾個
+          while (toCheck.length > 0) {
+            var j = toCheck.pop();
+            if(cells.eq(j).attr("id") == "Pic0") {   //如果上下左右有 0 則交換位置
+              if(i > j) {                 //??????????????
+                var k = j; 
+                j = i;
+                i = k;
+              }
+              var ahead = cells.eq(i);
+              var behind = cells.eq(j);
+              var behindPrev = behind.prev();
+
+              if(Math.abs(i - j) == 1) {    //左右對調
+                behind.after(ahead);
+              }
+              else {                        //上下對調
+                ahead.after(behind);
+                behindPrev.after(ahead);
+              }
+              break;
+            }
+          }
+        });
+        $("#start").click(function() {
+          for(var i = 0; i < 500; i++) {
+            var cells = $("#dvPuzzle div");
+            var toMove = getAroundPos(cells.index($("#Pic0")[0]));
+            cells.eq(toMove[
+              parseInt(Math.random() * toMove.length)
+            ]).click();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
