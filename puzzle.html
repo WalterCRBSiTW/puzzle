@@ -173,9 +173,9 @@
           </div>
           <div
             class="modal-body"
-            style="background-color:rgb(207, 45, 45); color: white;"
+            style="background-color:rgb(207, 45, 45); color: white; text-align: center;"
           >
-            確定恢復拼圖，重新開始遊戲嗎?
+            確定恢復拼圖，放棄本局嗎?
           </div>
           <div
             class="modal-footer border-top-0"
@@ -283,15 +283,37 @@
                 ahead.after(behind);
                 behindPrev.after(ahead);
               }
+              if ($("#Pic1").index() == 1
+                    && $("#Pic2").index() == 2
+                    && $("#Pic3").index() == 3
+                    && $("#Pic4").index() == 4
+                    && $("#Pic5").index() == 5
+                    && $("#Pic6").index() == 6
+                    && $("#Pic7").index() == 7
+                    && $("#Pic8").index() == 8
+                    && $("#Pic9").index() == 9
+                    && $("#Pic10").index() == 10
+                    && $("#Pic11").index() == 11
+                    && $("#Pic12").index() == 12
+                    && $("#Pic13").index() == 13
+                    && $("#Pic14").index() == 14
+                    && $("#Pic15").index() == 15) {  
+                    alert("恭喜過關");                  
+                    $("#Pic0 img").show();
+                    window.location.reload();
+                    $('.PicCell').off('click', PicCell);
+                    
+                }
               break;
             }
           }
+          
         });
 
         $("#start").click(function() {
           $("#start").text("重新打亂");
 
-          $("#Pic0 img").remove();
+          $("#Pic0 img").hide();
           for (var i = 0; i < 500; i++) {
             var cells = $("#dvPuzzle div");
             var toMove = getAroundPos(cells.index($("#Pic0")[0]));
