@@ -30,12 +30,10 @@
       #dvPuzzle {
         width: 510px;
         height: 510px;
-        border: solid 5px blue;
+        border: solid 5px rgb(255, 226, 62);
         padding: 0px;
         margin: 20px auto;
       }
-
-
     </style>
   </head>
   <body>
@@ -71,11 +69,13 @@
           class="btn btn-secondary rounded"
           style="height:50px; width: 200px; margin:10px 0;"
           align="center"
-          value="start"
+          data-toggle="modal"
+          data-target="#exampleModalCenter"
         >
           說明
         </button>
       </div>
+     
       <div class="col-6">
         <div id="dvPuzzle"></div>
       </div>
@@ -85,6 +85,24 @@
           alt=""
           style="display:block; margin:20px auto;"
         />
+      </div>
+    </div> 
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" >
+        <div class="modal-content border-0" style="opacity:0.8;">
+          <div class="modal-header border-bottom-0" style="background-color:rgb(37, 37, 37);">
+            <h5 class="modal-title" style="color: white" id="exampleModalCenterTitle">遊戲攻略</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"  style="background-color:rgb(37, 37, 37); color: white;">
+            整體思路：從上往下，從左向右；第一排優先把前三個完成，這個完成步驟很簡單，因為格子多，所以都能完成，自我發揮吧。
+          </div>
+          <div class="modal-footer border-top-0" style="background-color:rgb(37, 37, 37);">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -106,12 +124,14 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      $(function() {
-        var allPos = {}; //???????
+      $(function start() {
+        var allPos = {}; //???????  座標的寫法
         //製作16張圖
         for (var i = 0; i < 16; i++) {
-          $("#dvPuzzle").append("<div class='PicCell overflow-hidden float-left border border-light' style='width:125px;height:125px;' id='Pic" + i 
-          + "'><img src='/20181112_233622_0001.png'/></div>"
+          $("#dvPuzzle").append(
+            "<div class='PicCell overflow-hidden float-left border border-light' style='width:125px;height:125px;' id='Pic" +
+              i +
+              "'><img src='/20181112_233622_0001.png'/></div>"
           );
           var y = parseInt(i / 4);
           var x = i % 4;
@@ -121,37 +141,45 @@
           //第i個換成第row列第col行
           allPos[i] = { row: y, col: x };
           console.log(x, y);
-          // $("#Pic0").remove();
           //取得 i 四周相鄰的位置
           function getAroundPos(i) {
             var around = [];
-            var y = allPos[i].row
-            var x = allPos[i].col
-            if(y > 0) {                         //上
+            var y = allPos[i].row;
+            var x = allPos[i].col;
+            if (y > 0) {
+              //上
               around.push((y - 1) * 4 + x);
             }
-            if(y < 4) {                         //下
+            if (y < 4) {
+              //下
               around.push((y + 1) * 4 + x);
             }
-            if(x > 0) {                         //左
-              around.push((x - 1));
-            }      
-            if(y > 0) {                         //右
-              around.push((x + 1));
+            if (x > 0) {
+              //左
+              around.push(i - 1);
             }
+            if (x < 4) {
+              //右
+              around.push(i + 1);
+            }
+            console.log(around);
             return around;
           }
         }
         //點及事件
         $(".PicCell").click(function() {
           var cells = $("#dvPuzzle div");
-          var i = cells.index(this);
-          var toCheck = getAroundPos(i);   //找出元素是第幾個
+          var i = cells.index(this); //获得元素相对于选择器的 index 位置
+          var toCheck = getAroundPos(i);
+          // console.log(toCheck);   //找出元素是第幾個
           while (toCheck.length > 0) {
             var j = toCheck.pop();
-            if(cells.eq(j).attr("id") == "Pic0") {   //如果上下左右有 0 則交換位置
-              if(i > j) {                 //??????????????
-                var k = j; 
+            console.log(j);
+            if (cells.eq(j).attr("id") == "Pic0") {
+              //如果上下左右有 0 則交換位置
+              if (i > j) {
+                //??????????????
+                var k = j;
                 j = i;
                 i = k;
               }
@@ -159,10 +187,11 @@
               var behind = cells.eq(j);
               var behindPrev = behind.prev();
 
-              if(Math.abs(i - j) == 1) {    //左右對調
+              if (Math.abs(i - j) == 1) {
+                //左右對調
                 behind.after(ahead);
-              }
-              else {                        //上下對調
+              } else {
+                //上下對調
                 ahead.after(behind);
                 behindPrev.after(ahead);
               }
@@ -171,14 +200,18 @@
           }
         });
         $("#start").click(function() {
-          for(var i = 0; i < 500; i++) {
+          $("#start").text("重新打亂");
+          $("#Pic0 img").remove();
+          for (var i = 0; i < 500; i++) {
             var cells = $("#dvPuzzle div");
             var toMove = getAroundPos(cells.index($("#Pic0")[0]));
-            cells.eq(toMove[
-              parseInt(Math.random() * toMove.length)
-            ]).click();
+            cells.eq(toMove[parseInt(Math.random() * toMove.length)]).click();
           }
         });
+      });
+      $("#restore").click(function() {
+        $("#start").text("開始遊戲");
+        
       });
     </script>
   </body>
