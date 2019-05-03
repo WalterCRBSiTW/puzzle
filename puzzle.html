@@ -37,157 +37,159 @@
     </style>
   </head>
   <body>
-    <div class="row">
-      <div class="col-4 text-center">
-        <button
-          type="button"
-          class="btn btn-secondary rounded"
-          style="height:50px; width: 200px; margin:10px 0;"
-          align="center"
-          value="start"
-          data-toggle="modal"
-          data-target="#restore"
-        >
-          復原
-        </button>
-      </div>
-      <div class="col-4 text-center ">
-        <button
-          id="start"
-          type="button"
-          class="btn btn-secondary rounded"
-          style=" height:50px; width: 300px; margin:10px 0;"
-          align="center"
-          value="start"
-        >
-          開始拼圖
-        </button>
-      </div>
-      <div class="col-4 text-center ">
-        <button
-          type="button"
-          class="btn btn-secondary rounded"
-          style="height:50px; width: 200px; margin:10px 0;"
-          align="center"
-          data-toggle="modal"
-          data-target="#Dcn"
-        >
-          說明
-        </button>
-      </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-4 text-center">
+          <button
+            type="button"
+            class="btn btn-secondary rounded"
+            style="height:73%; width: 55%; margin:10px 0;"
+            align="center"
+            value="start"
+            data-toggle="modal"
+            data-target="#restore"
+          >
+            復原
+          </button>
+        </div>
+        <div class="col-4 text-center ">
+          <button
+            id="start"
+            type="button"
+            class="btn btn-secondary rounded"
+            style=" height:73%; width: 80%; margin:10px 0;"
+            align="center"
+            value="start"
+          >
+            開始拼圖
+          </button>
+        </div>
+        <div class="col-4 text-center ">
+          <button
+            type="button"
+            class="btn btn-secondary rounded"
+            style="height:73%; width: 55%; margin:10px 0;"
+            align="center"
+            data-toggle="modal"
+            data-target="#Dcn"
+          >
+            說明
+          </button>
+        </div>
 
-      <div class="col-6">
-        <div id="dvPuzzle"></div>
+        <div class="col-6" id="pz1">
+          <div id="dvPuzzle"></div>
+        </div>
+        <div class="col-6" id="pz2">
+          <img
+            src="/20181112_233622_0001.png"
+            alt=""
+            style="display:block; margin:20px auto;"
+          />
+        </div>
       </div>
-      <div class="col-6">
-        <img
-          src="/20181112_233622_0001.png"
-          alt=""
-          style="display:block; margin:20px auto;"
-        />
-      </div>
-    </div>
-    <div
-      class="modal fade"
-      id="Dcn"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0" style="opacity:0.8;">
-          <div
-            class="modal-header border-bottom-0"
-            style="background-color:rgb(37, 37, 37);"
-          >
-            <h5
-              class="modal-title"
-              style="color: white"
-              id="exampleModalCenterTitle"
+      <div
+        class="modal fade"
+        id="Dcn"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content border-0" style="opacity:0.8;">
+            <div
+              class="modal-header border-bottom-0"
+              style="background-color:rgb(37, 37, 37);"
             >
-              遊戲攻略
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              style="color: white;"
+              <h5
+                class="modal-title"
+                style="color: white"
+                id="exampleModalCenterTitle"
+              >
+                遊戲攻略
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                style="color: white;"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div
+              class="modal-body"
+              style="background-color:rgb(37, 37, 37); color: white;"
             >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div
-            class="modal-body"
-            style="background-color:rgb(37, 37, 37); color: white;"
-          >
-            整體思路：從上往下，從左向右；第一排優先把前三個完成，這個完成步驟很簡單，因為格子多，所以都能完成，自我發揮吧。
-          </div>
-          <div
-            class="modal-footer border-top-0"
-            style="background-color:rgb(37, 37, 37);"
-          >
-            <button
-              type="button"
-              class="btn btn-outline-light"
-              data-dismiss="modal"
+              整體思路：從上往下，從左向右；第一排優先把前三個完成，這個完成步驟很簡單，因為格子多，所以都能完成，自我發揮吧。
+            </div>
+            <div
+              class="modal-footer border-top-0"
+              style="background-color:rgb(37, 37, 37);"
             >
-              Close
-            </button>
+              <button
+                type="button"
+                class="btn btn-outline-light"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div
-      class="modal fade"
-      id="restore"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0" style="opacity:0.8;">
-          <div
-            class="modal-header border-bottom-0"
-            style="background-color:rgb(207, 45, 45);"
-          >
-            <h5
-              class="modal-title"
-              style="color: white"
-              id="exampleModalCenterTitle"
+      <div
+        class="modal fade"
+        id="restore"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content border-0" style="opacity:0.8;">
+            <div
+              class="modal-header border-bottom-0"
+              style="background-color:rgb(207, 45, 45);"
             >
-              重要訊息
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              style="color: white;"
+              <h5
+                class="modal-title"
+                style="color: white"
+                id="exampleModalCenterTitle"
+              >
+                重要訊息
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                style="color: white;"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div
+              class="modal-body"
+              style="background-color:rgb(207, 45, 45); color: white; text-align: center;"
             >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div
-            class="modal-body"
-            style="background-color:rgb(207, 45, 45); color: white; text-align: center;"
-          >
-            確定恢復拼圖，放棄本局嗎?
-          </div>
-          <div
-            class="modal-footer border-top-0"
-            style="background-color:rgb(207, 45, 45);"
-          >
-            <button
-              type="button"
-              class="btn btn-outline-light"
-              data-dismiss="modal"
+              確定恢復拼圖，放棄本局嗎?
+            </div>
+            <div
+              class="modal-footer border-top-0"
+              style="background-color:rgb(207, 45, 45);"
             >
-              Close
-            </button>
+              <button
+                type="button"
+                class="btn btn-outline-light"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -228,7 +230,7 @@
             .css("margin-top", y * -125);
           //第i個換成第row列第col行
           allPos[i] = { row: y, col: x };
-          console.log(x, y);
+          // console.log(x, y);
           //取得 i 四周相鄰的位置
           function getAroundPos(i) {
             var around = [];
@@ -250,7 +252,7 @@
               //右
               around.push(i + 1);
             }
-            console.log(around);
+            // console.log(around);
             return around;
           }
         }
@@ -262,7 +264,7 @@
           // console.log(toCheck);   //找出元素是第幾個
           while (toCheck.length > 0) {
             var j = toCheck.pop();
-            console.log(j);
+            // console.log(j);
             if (cells.eq(j).attr("id") == "Pic0") {
               //如果上下左右有 0 則交換位置
               if (i > j) {
@@ -283,31 +285,31 @@
                 ahead.after(behind);
                 behindPrev.after(ahead);
               }
-              if ($("#Pic1").index() == 1
-                    && $("#Pic2").index() == 2
-                    && $("#Pic3").index() == 3
-                    && $("#Pic4").index() == 4
-                    && $("#Pic5").index() == 5
-                    && $("#Pic6").index() == 6
-                    && $("#Pic7").index() == 7
-                    && $("#Pic8").index() == 8
-                    && $("#Pic9").index() == 9
-                    && $("#Pic10").index() == 10
-                    && $("#Pic11").index() == 11
-                    && $("#Pic12").index() == 12
-                    && $("#Pic13").index() == 13
-                    && $("#Pic14").index() == 14
-                    && $("#Pic15").index() == 15) {  
-                    alert("恭喜過關");                  
-                    $("#Pic0 img").show();
-                    window.location.reload();
-                    $('.PicCell').off('click', PicCell);
-                    
-                }
+              if (
+                $("#Pic1").index() == 1 &&
+                $("#Pic2").index() == 2 &&
+                $("#Pic3").index() == 3 &&
+                $("#Pic4").index() == 4 &&
+                $("#Pic5").index() == 5 &&
+                $("#Pic6").index() == 6 &&
+                $("#Pic7").index() == 7 &&
+                $("#Pic8").index() == 8 &&
+                $("#Pic9").index() == 9 &&
+                $("#Pic10").index() == 10 &&
+                $("#Pic11").index() == 11 &&
+                $("#Pic12").index() == 12 &&
+                $("#Pic13").index() == 13 &&
+                $("#Pic14").index() == 14 &&
+                $("#Pic15").index() == 15
+              ) {
+                alert("恭喜過關");
+                $("#Pic0 img").show();
+                window.location.reload();
+                $(".PicCell").off("click", PicCell);
+              }
               break;
             }
           }
-          
         });
 
         $("#start").click(function() {
@@ -322,8 +324,32 @@
         });
       }
       $("#restore").click(function() {
-        
         window.location.reload();
+      });
+
+      // $(document).load($(window).bind("resize", checkPosition));  //.load()加載   .bind()單擊事件  resize
+
+      // function checkPosition() {
+      //   var a = ($(window).width());
+      //   console.log(a);
+      //   if ($(window).width() < 900) {
+      //     $("#pz1", "#pz2")
+      //       .attr("class", "col-12")
+      //   }
+      // }
+      $(document).ready(function() {
+        $(window).resize(function() {
+          var a = $(window).width();
+          console.log(a);
+          if (a < 1200) {
+            $("#pz1").attr("class", "col-12");
+            $("#pz2").attr("class", "col-12");
+          }
+          else {
+            $("#pz1").attr("class", "col-6");
+            $("#pz2").attr("class", "col-6");
+          }
+        });
       });
     </script>
   </body>
