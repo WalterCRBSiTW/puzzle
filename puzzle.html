@@ -338,7 +338,17 @@
       //   }
       // }
       $(document).ready(function() {
-        $(window).resize(function() {
+        var a = $(window).width();
+          console.log(a);
+          if (a < 1200) {
+            $("#pz1").attr("class", "col-12");
+            $("#pz2").attr("class", "col-12");
+          }
+          else {
+            $("#pz1").attr("class", "col-6");
+            $("#pz2").attr("class", "col-6");
+          }
+        $(window).resize(function() { //当调整浏览器窗口的大小时，发生 resize 事件。
           var a = $(window).width();
           console.log(a);
           if (a < 1200) {
